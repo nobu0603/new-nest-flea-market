@@ -6,7 +6,7 @@ import { User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class jwtStrategy extends PassportStrategy(Strategy) {
+export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
