@@ -36,8 +36,7 @@ export class ItemsController {
     @Body() createItemDto: CreateItemDto,
     @GetUser() user: User,
   ): Promise<Item> {
-    console.log(user);
-    return await this.itemsService.create(createItemDto);
+    return await this.itemsService.create(createItemDto, user);
   }
 
   @Patch(':id')
