@@ -1,5 +1,6 @@
 import {
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Delete,
   Get,
@@ -8,6 +9,7 @@ import {
   Patch,
   Post,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ItemsService } from './items.service';
 import { Item } from '../entities/item.entity';
@@ -17,6 +19,7 @@ import { User } from 'src/entities/user.entity';
 import { GetUser } from 'src/auth/decorator/get-user.decorator';
 
 @Controller('items')
+@UseInterceptors(ClassSerializerInterceptor)
 export class ItemsController {
   constructor(private readonly itemsService: ItemsService) {}
 
