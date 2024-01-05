@@ -8,7 +8,7 @@ import { ItemStatus } from './item-status.enum';
 import { CreateItemDto } from './dto/create-item.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from 'src/entities/user.entity';
+import { User } from '../entities/user.entity';
 
 @Injectable()
 export class ItemsService {
@@ -50,7 +50,14 @@ export class ItemsService {
     }
     item.status = ItemStatus.SOLD_OUT;
     item.updatedAt = new Date().toISOString();
-    await this.itemRepository.save(item);
+    item.updatedAt = new Date().toISOString();
+    const updatedItem = await this.itemRepository.update(id, {
+      status: item.status,
+      updatedAt: item.updatedAt,
+    });
+    if (updatedItem.affected === 0) {
+      throw new NotFoundException(`${id}のデータを更新できませんでした`);
+    }
     return item;
   }
 
